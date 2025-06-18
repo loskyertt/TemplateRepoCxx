@@ -1,4 +1,7 @@
 # for each "test/x.cpp", generate target "x"
+message("\n--------------------------------------------")
+message("CMakeLists.txt for test directory")
+
 file(GLOB_RECURSE all_tests *.cpp)
 
 foreach(v ${all_tests})

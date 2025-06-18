@@ -14,10 +14,9 @@ set(CMAKE_C_STANDARD 11)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
-    message("Setting default build type to Release")
+    message("Setting default build type to Release...")
 endif()
 
-# generate compile_commands.json file
 # This is useful for tools like clangd, which use this file to provide code completion and other features.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -34,4 +33,4 @@ add_subdirectory(./test)
 
 add_subdirectory(./example)
 
-add_subdirectory(./libs)
+add_subdirectory(./lib)

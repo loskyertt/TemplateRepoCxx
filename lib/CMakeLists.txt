@@ -1,9 +1,12 @@
-# for each "libs/x.cpp", generate shared library or static library
+# for each "lib/x.cpp", generate shared library or static library
+message("\n--------------------------------------------")
+message("CMakeLists.txt for lib directory")
+
 file(GLOB_RECURSE all_libs CONFIGURE_DEPENDS *.cpp)
 
 foreach(v ${all_libs})
     message("Processing: ${v}")
-    file(RELATIVE_PATH relative_path ${PROJECT_SOURCE_DIR}/libs ${v})
+    file(RELATIVE_PATH relative_path ${PROJECT_SOURCE_DIR}/lib ${v})
     string(REPLACE "/" "_" target_name ${relative_path})
     get_filename_component(target_name ${target_name} NAME_WE)
     message("Relative path: ${relative_path}")
@@ -22,7 +25,7 @@ foreach(v ${all_libs})
     # 设置属性
     target_include_directories(${target_name} PUBLIC
         ${PROJECT_SOURCE_DIR}/include # 公共头文件路径
-        ${CMAKE_CURRENT_SOURCE_DIR} # 当前目录头文件
+        ${CMAKE_CURRENT_SOURCE_DIR} # 当前目录下的头文件
     )
 
     target_compile_options(${target_name} PRIVATE -Wall -Wextra -Werror)
