@@ -1,5 +1,4 @@
 # for each "example/x.cpp", generate target "x"
-message("\n--------------------------------------------")
 message("CMakeLists.txt for example directory")
 
 file(GLOB_RECURSE all_examples *.cpp)
@@ -11,3 +10,5 @@ foreach(v ${all_examples})
 
     add_executable(${target_name} ${v})
 endforeach()
+
+message("\n--------------------------------------------")

@@ -8,7 +8,7 @@ if(NOT CMAKE_CXX_COMPILER)
     set(CMAKE_CXX_COMPILER clang++)
 endif()
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 # set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD 11)
 
@@ -22,10 +22,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(my_project_name VERSION 0.0.1 LANGUAGES C CXX)
 
-# 在根 CMakeLists.txt 中定义接口库，然后在子目录中链接这个接口库
-# add_library(project_options INTERFACE)
-# target_compile_options(project_options INTERFACE -Wall -Wextra -Werror)
-# target_include_directories(project_options INTERFACE ${PROJECT_SOURCE_DIR}/include)
+message("\n--------------------------------------------")
 
 add_subdirectory(./src)
 

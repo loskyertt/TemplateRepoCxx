@@ -1,5 +1,4 @@
 # for each "lib/x.cpp", generate shared library or static library
-message("\n--------------------------------------------")
 message("CMakeLists.txt for lib directory")
 
 file(GLOB_RECURSE all_libs CONFIGURE_DEPENDS *.cpp)
@@ -19,7 +18,7 @@ foreach(v ${all_libs})
 
     # 生成动态库
     add_library(${target_name} SHARED ${v})
-    # 或静态库
+    # 生成静态库
     # add_library(${target_name} STATIC ${v})
 
     # 设置属性
@@ -31,8 +30,10 @@ foreach(v ${all_libs})
     target_compile_options(${target_name} PRIVATE -Wall -Wextra -Werror)
 
     # 可选：设置输出目录
-    set_target_properties(${target_name} PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib # 动态库输出路径
-        ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib # 静态库输出路径
-    )
+    # set_target_properties(${target_name} PROPERTIES
+    #     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib # 动态库输出路径
+    #     ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib # 静态库输出路径
+    # )
 endforeach()
+
+message("\n--------------------------------------------")

@@ -1,5 +1,4 @@
 # for each "test/x.cpp", generate target "x"
-message("\n--------------------------------------------")
 message("CMakeLists.txt for test directory")
 
 file(GLOB_RECURSE all_tests *.cpp)
@@ -19,6 +18,7 @@ foreach(v ${all_tests})
     # 为当前目标添加头文件路径
     target_include_directories(${target_name} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-    # 可选：设置其他属性（如编译器警告）
     target_compile_options(${target_name} PRIVATE -Wall -Wextra -Werror)
 endforeach()
+
+message("\n--------------------------------------------")
