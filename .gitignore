@@ -33,6 +33,8 @@
 
 # CMake
 build/
+cmake-build-debug/
+cmake-release-debug/
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
