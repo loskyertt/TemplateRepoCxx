@@ -2,7 +2,7 @@
 message("CMakeLists.txt for src directory")
 
 set(ALL_SRCS
-    main.cpp
+  main.cpp
 )
 
 # 调试：打印所有找到的源文件
