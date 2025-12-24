@@ -1,5 +1,13 @@
 {
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    // ------------- NixOS 中需加上这两个字段 -------------
+    "clangd.arguments": [
+        "--query-driver=/nix/store/**-clang-**/bin/clang++",
+        "--compile-commands-dir=build",
+        "--background-index",
+        "--log=verbose"
+    ],
+    "clangd.path": "clangd",
+    // ----------------------------------------------------
     "files.associations": {
         ".clang-format": "yaml",
         "*.clang-format": "yaml",
