@@ -7,6 +7,7 @@
         "--completion-style=bundled", // 代码补全风格：打包式
         "--pch-storage=memory", // 预编译头文件存储在内存中
         "--cross-file-rename", // 启用跨文件重命名功能
+        "--enable-config", // 允许从 .clangd 文件读取配置
     ],
     "cmake.buildTask": true
 }
