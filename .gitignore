@@ -64,6 +64,9 @@ _deps
 # Built Visual Studio Code Extensions
 *.vsix
 
+# CLion
+.idea/
+
 draft/
 
 # log for perf

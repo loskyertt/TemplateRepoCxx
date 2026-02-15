@@ -1,0 +1,10 @@
+# Windows 上使用
+CompileFlags:
+  Add:
+    - -std=c++20
+    - -IC:/Apps/CLion 2025.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++
+    - -IC:/Apps/CLion 2025.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32
+    - -IC:/Apps/CLion 2025.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include
+    - -IC:/Apps/CLion 2025.3.2/bin/mingw/include
+    - -IC:/Apps/CLion 2025.3.2/bin/mingw/x86_64-w64-mingw32/include
+  Compiler: C:/Apps/CLion 2025.3.2/bin/mingw/bin/g++.exe
