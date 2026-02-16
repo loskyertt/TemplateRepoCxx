@@ -137,6 +137,8 @@ $env:PYTHONIOENCODING = "utf-8"
 
 ### 4.2.2 方案 2：配置 clangd 参数
 
+> 比如我这里使用的是 CLion 集成的 mingw。
+
 在 VS Code 的 `settings.json` 中添加：
 
 ```json
@@ -157,7 +159,7 @@ $env:PYTHONIOENCODING = "utf-8"
 **关键参数**：
 - `--query-driver`：告诉 clangd 查询指定编译器的系统 include 路径
 
-再在项目根目录下创建 `.clangd` 文件，在里面手动指定 MinGW 的 C++ 标准库路径（比如我这里使用的是 CLion 集成的 mingw）：
+再在项目根目录下创建 `.clangd` 文件，在里面手动指定 MinGW 的 C++ 标准库路径：
 
 ```yaml
 CompileFlags:
