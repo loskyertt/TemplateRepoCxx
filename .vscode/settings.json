@@ -1,7 +1,6 @@
 {
     "clangd.arguments": [
         "--compile-commands-dir=${workspaceFolder}/build", // 指定 compile_commands.json 所在目录
-        "--query-driver=C:/Apps/CLion 2025.3.2/bin/mingw/bin/g++.exe", // 查询指定编译器的系统 include 路径
         "--background-index", // 后台索引整个项目，加速代码跳转
         "--header-insertion=iwyu", // 自动插入头文件时遵循 "Include What You Use" 原则
         "--completion-style=bundled", // 代码补全风格：打包式

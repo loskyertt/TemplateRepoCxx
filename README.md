@@ -123,13 +123,19 @@ $env:PYTHONIOENCODING = "utf-8"
 
 ## 4.2 无法找到头文件
 
-> 在 **VSCode + clangd** 配置下，可能会出现无法找到标准库头文件的情况，导致 clangd 报错，但是编译是可以通过的。这个错误是因为 **clangd 无法找到 MinGW 的标准库头文件路径**。虽然你生成了 `compile_commands.json`，但里面的编译器是 MinGW 的 `g++.exe`，而 clangd 需要知道这些头文件在哪里。
+> 在 **VSCode + clangd** 配置下，可能会出现无法找到标准库头文件的情况，导致 clangd 报错，但是编译是可以通过的。一般单独分别安装 llvm 和 mingw 时，会出现这个错误。这个错误是因为 **clangd 无法找到 MinGW 的标准库头文件路径**。虽然你生成了 `compile_commands.json`，但里面的编译器是 MinGW 的 `g++.exe`，而 clangd 需要知道这些头文件在哪里。
 
 其问题根源是 clangd 和 MinGW 是两个不同的工具链：
 - **clangd** 基于 LLVM/Clang，默认在 MSVC 或自身 libc++ 环境下查找头文件
 - **MinGW** 使用 GCC 的 libstdc++，头文件路径不同
 
-### 4.2.1 方案 1：配置 clangd 参数（推荐）
+### 4.2.1 方案 1：使用集成有 llvm 的 mingw
+
+下载：[winlibs](https://winlibs.com/)
+
+选择 **UCRT runtime** 版并且包含有 **LLVM/Clang/LLD/LLDB** 的下载。
+
+### 4.2.2 方案 2：配置 clangd 参数
 
 在 VS Code 的 `settings.json` 中添加：
 
@@ -151,7 +157,7 @@ $env:PYTHONIOENCODING = "utf-8"
 **关键参数**：
 - `--query-driver`：告诉 clangd 查询指定编译器的系统 include 路径
 
-再在项目根目录下创建 `.clangd` 文件，在里面手动指定 MinGW 的 C++ 标准库路径：
+再在项目根目录下创建 `.clangd` 文件，在里面手动指定 MinGW 的 C++ 标准库路径（比如我这里使用的是 CLion 集成的 mingw）：
 
 ```yaml
 CompileFlags:
@@ -167,7 +173,7 @@ CompileFlags:
 
 > 把上面的路径改成你自己的。
 
-### 4.2.2 方案 2：改用 Clang 编译器
+### 4.2.3 方案 3：改用 Clang 编译器
 
 可以尝试直接用 Clang 编译，避免工具链混用：
 
