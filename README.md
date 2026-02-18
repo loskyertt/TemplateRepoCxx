@@ -185,3 +185,38 @@ cmake -B build -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -D
 ```
 
 确保 `clang++` 能找到 MinGW 的 libstdc++，或使用 Clang 自带的 libc++。
+
+## 4.3 使用 MSVC 编译器
+
+> 有时候不可避免得要用到 MSVC 编译器，因为网上有不少预编译好的 Windows 第三方库，都是用的 MSVC 编译器。
+
+下载后 VS 时（比如下载的是 VS 2022 Community），会自动安装 **Developer Command Prompt for VS 2022** 和 **Developer PowerShell for VS 2022**，这两个终端集成了 MSVC 编译器的环境变量。在该终端中使用指令 `where.exe cl` 会有如下输出：
+
+```shell
+PS C:\Apps\Microsoft Visual Studio\2022\Community> where.exe cl
+C:\Apps\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\Hostx64\x64\cl.exe
+```
+
+打开 **Developer PowerShell for VS 2022**，然后用 `cd` 命令进入到项目根目录，输入：
+
+```shell
+# 打开 VSCode
+code .
+
+# 或者打开 CLion
+clion64.exe .
+```
+
+这样打开的 IDE 就会继承  **Developer PowerShell for VS 2022** 中的环境。
+
+> 前提是要把 VSCode 和 CLion 添加到环境变量中。这里建议使用  **Developer PowerShell for VS 2022** 而不是 **Developer Command Prompt for VS 2022**，因为前者的命令行功能更强大。
+
+使用 ` cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug` 会默认使用 MSVC 编译器。
+
+如果使用 MSVC 生成器（Visual Studio Generator），是不会生成 `compile_commands.json` 文件的：
+
+```shell
+cmake -B build -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Debug
+```
+
+因此，除非要使用 VS 进行开发，其他情况生成器请选择 Ninja 或者 Unix Makefiles。
