@@ -9,6 +9,11 @@ foreach(v ${all_examples})
   string(REGEX REPLACE ".cpp" "" target_name ${target_name})
 
   add_executable(${target_name} ${v})
+
+  # MSVC UTF-8 支持
+  if(MSVC)
+    target_compile_options(${target_name} PRIVATE /utf-8)
+  endif()
 endforeach()
 
 message("\n--------------------------------------------")
