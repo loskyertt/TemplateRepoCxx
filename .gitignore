@@ -35,6 +35,7 @@
 build/
 cmake-build-debug/
 cmake-release-debug/
+out/
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -63,6 +64,9 @@ _deps
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# VS
+.vs/
 
 # CLion
 .idea/

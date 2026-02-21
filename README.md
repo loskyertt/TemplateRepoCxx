@@ -65,11 +65,25 @@ target_link_libraries(myApp PRIVATE myLib)
 
 ## 3.3 使用 Ninja
 
+> `Ninja`的构建速度很快。
+
+如果采用的是 LLVM：
+
 ```bash
-cmake -B build -G Ninja
+cmake -B build -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 ```
 
-`Ninja`的构建速度很快。
+如果采用的是 GNU：
+
+```bash
+cmake -B build -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
+```
+
+如果采用的是 MSVC：
+
+```bash
+cmake -B build -G Ninja -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl
+```
 
 ## 3.4 指定目标编译
 
@@ -211,7 +225,7 @@ clion64.exe .
 
 > 前提是要把 VSCode 和 CLion 添加到环境变量中。这里建议使用  **Developer PowerShell for VS 2022** 而不是 **Developer Command Prompt for VS 2022**，因为前者的命令行功能更强大。
 
-使用 ` cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug` 会默认使用 MSVC 编译器。
+在编译时指定编译器：`-DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl`。
 
 如果使用 MSVC 生成器（Visual Studio Generator），是不会生成 `compile_commands.json` 文件的：
 
