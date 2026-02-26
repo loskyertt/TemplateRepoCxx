@@ -135,6 +135,27 @@ $env:PYTHONIOENCODING = "utf-8"
 
 修改完毕后，重启 PowerShell 即可。
 
+如果是在 VS 中运行程序，因为默认打开的是 cmd，所以建议在代码 `main` 函数开头添加：
+
+```cpp
+int main(){
+  // 设置控制台为 UTF-8
+  SetConsoleOutputCP(CP_UTF8);
+  SetConsoleCP(CP_UTF8);
+  
+  // 其它代码......
+}
+```
+
+如果采用 MSVC 编译，需要在 `CMakeLists.txt` 中给目标程序添加编译选项：
+
+```cmake
+# MSVC UTF-8 支持
+if(MSVC)
+  target_compile_options(my_app PRIVATE /utf-8)
+endif()
+```
+
 ## 4.2 无法找到头文件
 
 > 在 **VSCode + clangd** 配置下，可能会出现无法找到标准库头文件的情况，导致 clangd 报错，但是编译是可以通过的。一般单独分别安装 llvm 和 mingw 时，会出现这个错误。这个错误是因为 **clangd 无法找到 MinGW 的标准库头文件路径**。虽然你生成了 `compile_commands.json`，但里面的编译器是 MinGW 的 `g++.exe`，而 clangd 需要知道这些头文件在哪里。
