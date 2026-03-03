@@ -5,13 +5,7 @@ file(GLOB_RECURSE all_tests *.cpp)
 
 foreach(v ${all_tests})
   message("Processing: ${v}")
-  # 获取相对于 test/ 的路径
-  file(RELATIVE_PATH relative_path ${PROJECT_SOURCE_DIR}/test ${v})
-  # 替换路径分隔符为下划线，并去掉扩展名
-  string(REPLACE "/" "_" target_name ${relative_path})
-  message("Relative path: ${relative_path}")
-  get_filename_component(target_name ${target_name} NAME_WE)
-  message("Target name: ${target_name}")
+  get_filename_component(target_name ${v} NAME_WE) # 生成目标名（去掉路径和扩展名）
 
   add_executable(${target_name} ${v})
 
