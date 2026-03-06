@@ -8,6 +8,9 @@ add_library(math_utils SHARED
 
 target_include_directories(math_utils PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-# 可以继续往后补充......
+if(MSVC)
+  set_target_properties(math_utils PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+  target_compile_options(math_utils PRIVATE /utf-8)  # UTF-8 支持
+endif()
 
 message("\n--------------------------------------------")

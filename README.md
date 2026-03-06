@@ -6,27 +6,26 @@
 
 ```bash
 .
-├── cmake_build_debug.sh
 ├── CMakeLists.txt
+├── LICENSE
+├── README.md
+├── cmake_build_debug.sh
 ├── example  # 代码示例存放处
-│   └── CMakeLists.txt
+│   ├── CMakeLists.txt
+│   └── example01.cpp
 ├── format_count.sh
 ├── include  # 头文件存放处
 │   └── math_utils.h
 ├── lib  # 库文件存放处
 │   ├── CMakeLists.txt
 │   └── math_utils.cpp
-├── LICENSE
-├── README.md
 ├── src  # 源文件存放处
 │   ├── CMakeLists.txt
 │   └── main.cpp
 └── test  # 测试案例存放处
     ├── CMakeLists.txt
-    ├── sub_foo
-    │   └── sub_test_1.cpp
-    ├── test_1.cpp
-    └── test_2.cpp
+    ├── test01.cpp
+    └── test02.cpp
 ```
 
 ---
