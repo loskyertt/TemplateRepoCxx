@@ -14,4 +14,4 @@ foreach(v ${all_examples})
   endif()
 endforeach()
 
-message("\n--------------------------------------------")
+message(STATUS "--------------------------------------------\n")

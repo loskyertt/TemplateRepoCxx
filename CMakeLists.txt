@@ -47,7 +47,7 @@ endif()
 message(STATUS ">> 目标处理器 (System Processor): ${CMAKE_SYSTEM_PROCESSOR}")
 message(STATUS ">> 主机处理器 (Host Processor)  : ${CMAKE_HOST_SYSTEM_PROCESSOR}")
 
-# C. 检查生成器平台 (仅 VS 有效，其他为空，避免困惑)
+# C. 检查生成器平台 (仅 VS 有效)
 if(CMAKE_GENERATOR_PLATFORM)
   message(STATUS ">> 生成器平台 (Generator Platform): ${CMAKE_GENERATOR_PLATFORM}")
 else()
