@@ -1,31 +1,25 @@
 cmake_minimum_required(VERSION 3.20.0)
 
-# 1. 设置标准 (建议在 project 之前)
+# 设置标准 (建议在 project 之前)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD 11)
 
-# 2. 设置默认构建类型
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
-  message(STATUS "Setting default build type to Release")
-endif()
-
-# 3. 导出编译命令 (用于 clangd/vscode)
+# 导出编译命令 (用于 clangd/vscode)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# 4. Windows 特定设置
+# Windows 特定设置
 if(WIN32)
   # set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)  # 启用 Windows 下的符号自动导出功能（全局开启，不推荐）
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+  # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
   set(CMAKE_PDB_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/pdb)
 endif()
 
-# 5. 定义项目 (这会触发编译器探测，从而设置 CMAKE_SIZEOF_VOID_P)
+# 定义项目 (这会触发编译器探测，从而设置 CMAKE_SIZEOF_VOID_P)
 project(YOUR_PROJECT_NAME VERSION 0.0.1 LANGUAGES C CXX)
 
 # ---------------------------------------------------------
-# 6. 架构检测逻辑 (放在 project 之后)
+# 架构检测逻辑 (放在 project 之后)
 # ---------------------------------------------------------
 
 message(STATUS "--------------------------------------------")

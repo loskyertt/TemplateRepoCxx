@@ -141,7 +141,7 @@ int main(){
   // 设置控制台为 UTF-8
   SetConsoleOutputCP(CP_UTF8);
   SetConsoleCP(CP_UTF8);
-  
+
   // 其它代码......
 }
 ```
@@ -190,10 +190,12 @@ endif()
 }
 ```
 
-**关键参数**：
-- `--query-driver`：告诉 clangd 查询指定编译器的系统 include 路径
+`--query-driver` 作用是告诉 clangd 允许使用哪些编译器驱动程序来分析代码。它主要用于：
+- Linux 系统上的权限问题：clangd 默认可能无权限访问系统编译器
+- 跨平台编译时：指定允许使用的目标编译器
+- 通常也用通配符设置：`"--query-driver=C:/Apps/CLion 2025.3.2/bin/mingw/bin/**.exe"`
 
-再在项目根目录下创建 `.clangd` 文件，在里面手动指定 MinGW 的 C++ 标准库路径：
+再在项目根目录下创建 `.clangd` 文件，在里面手动指定 MinGW 的头文件搜索路径：
 
 ```yaml
 CompileFlags:
@@ -207,7 +209,9 @@ CompileFlags:
   Compiler: C:/Apps/CLion 2025.3.2/bin/mingw/bin/g++.exe
 ```
 
-> 把上面的路径改成你自己的。
+这个 `Compiler` 选项是给 clangd 语言服务器用的，让它知道用哪个编译器来解析代码、提供准确的代码补全、进行静态分析、报告错误和警告。
+
+> 记得把上面的路径改成你自己的。
 
 ### 4.2.3 方案 3：改用 Clang 编译器
 
@@ -247,7 +251,7 @@ clion64.exe .
 
 在编译时指定编译器：`-DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl`。
 
-如果使用 MSVC 生成器（Visual Studio Generator），是不会生成 `compile_commands.json` 文件的：
+如果使用 MSVC 生成器（Visual Studio Generator），这会生成 VS 解决方案，但是不会生成 `compile_commands.json` 文件：
 
 ```shell
 cmake -B build -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Debug
