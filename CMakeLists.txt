@@ -9,11 +9,11 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Windows 特定设置
-if(WIN32)
-  # set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)  # 启用 Windows 下的符号自动导出功能（全局开启，不推荐）
-  # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-  set(CMAKE_PDB_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/pdb)
-endif()
+# if(WIN32)
+#   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)  # 启用 Windows 下的符号自动导出功能（全局开启，不推荐）
+#   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+#   set(CMAKE_PDB_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/pdb)
+# endif()
 
 # 定义项目 (这会触发编译器探测，从而设置 CMAKE_SIZEOF_VOID_P)
 project(YOUR_PROJECT_NAME VERSION 0.0.1 LANGUAGES C CXX)
@@ -59,10 +59,10 @@ endif()
 
 message(STATUS "--------------------------------------------\n")
 
-add_subdirectory(./lib)
+add_subdirectory(lib)
 
-add_subdirectory(./src)
+add_subdirectory(src)
 
-# add_subdirectory(./test)
+# add_subdirectory(test)
 
-# add_subdirectory(./example)
+# add_subdirectory(example)
