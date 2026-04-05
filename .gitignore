@@ -87,3 +87,7 @@ palette.map
 
 # public/index.html for httpd
 public/
+
+# trash directory
+trash/
+.trash/

@@ -5,27 +5,22 @@
 # 2. 项目结构
 
 ```bash
-.
-├── CMakeLists.txt
-├── LICENSE
-├── README.md
-├── cmake_build_debug.sh
-├── example  # 代码示例存放处
-│   ├── CMakeLists.txt
-│   └── example01.cpp
-├── format_count.sh
-├── include  # 头文件存放处
-│   └── math_utils.h
-├── lib  # 库文件存放处
-│   ├── CMakeLists.txt
-│   └── math_utils.cpp
-├── src  # 源文件存放处
-│   ├── CMakeLists.txt
-│   └── main.cpp
-└── test  # 测试案例存放处
-    ├── CMakeLists.txt
-    ├── test01.cpp
-    └── test02.cpp
+project_root/
+├── CMakeLists.txt          # 顶层构建配置（现代CMake范式）
+├── src/                    # 源代码目录
+│   ├── main.cpp            # 程序入口
+│   ├── core/               # 核心业务模块
+│   │   ├── include/        # 对外公开接口头文件
+│   │   └── impl/           # 内部实现源文件
+│   └── utils/              # 通用工具模块
+├── include/                # 项目级公共头文件（供外部库或应用程序集成）
+├── tests/                  # 测试代码
+│   ├── unit/               # 单元测试
+│   └── integration/        # 集成测试
+├── cmake/                  # 自定义CMake模块（如FindXXX.cmake）
+├── scripts/                # 自动化脚本（构建、静态检查、部署）
+├── docs/                   # 技术文档与架构说明
+└── conanfile.txt 或 vcpkg.json # 依赖声明文件
 ```
 
 ---

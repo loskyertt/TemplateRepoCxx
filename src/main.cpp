@@ -1,11 +1,15 @@
-#include <iostream>
-#include "math_utils.h"
+#include "circle.h"
+#include "rectangle.h"
+#include "logger.h"
 
 int main() {
+  Logger logger;
 
-  int num = add(2, 4);
+  Circle c(5.0);
+  logger.info("Circle area: " + std::to_string(c.area()));
 
-  std::cout << "num = " << num << std::endl;
+  Rectangle r(4.0, 6.0);
+  logger.info("Rectangle area: " + std::to_string(r.area()));
 
-  std::cout << "Hello, World!" << std::endl;
+  return 0;
 }
