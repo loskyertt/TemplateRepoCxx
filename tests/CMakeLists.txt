@@ -9,7 +9,9 @@ FetchContent_Declare(
 )
 
 # Windows 上保持 MSVC 运行时一致性
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+if(MSVC)
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+endif()
 
 FetchContent_MakeAvailable(googletest)
 
@@ -22,5 +24,5 @@ target_link_libraries(unit_tests
   PRIVATE core GTest::gtest_main
 )
 
-include(GoogleTest)
+include(GoogleTest)  # 加载 CMake 内置的 GoogleTest 模块
 gtest_discover_tests(unit_tests)

@@ -1,9 +1,4 @@
 # src/CMakeLists.txt
-
-if(MSVC)
-  add_compile_options(/utf-8)  # 作用于当前 CMakeLists 下所有 target
-endif()
-
 set(TARGET ${PROJECT_NAME}-${CMAKE_SYSTEM_NAME})
 
 # core 模块：编译为静态库
@@ -26,7 +21,6 @@ target_include_directories(utils
 )
 
 if(MSVC)
-  # 只对动态库 utils 启用 Windows 下的符号自动导出功能，core 是静态库不需要
   set_target_properties(utils PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
 
