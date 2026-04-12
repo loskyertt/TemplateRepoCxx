@@ -5,11 +5,11 @@
 Language: Cpp
 BasedOnStyle: Google
 AccessModifierOffset: -1
-AlignAfterOpenBracket: AlwaysBreak  # default: Align
+AlignAfterOpenBracket: DontAlign  # 换行时将严格使用 ContinuationIndentWidth 进行缩进
 AlignConsecutiveAssignments: None
-AlignOperands: DontAlign  # default: Align
-AllowAllArgumentsOnNextLine: true
-AllowAllConstructorInitializersOnNextLine: true
+AlignOperands: DontAlign  # 不对齐操作数
+AllowAllArgumentsOnNextLine: false # default: true
+AllowAllConstructorInitializersOnNextLine: false # default: true
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: false
@@ -19,7 +19,8 @@ AllowShortLambdasOnASingleLine: Inline
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterReturnType: None
 AlwaysBreakTemplateDeclarations: Yes
-BinPackArguments: false    # default: true
+BinPackArguments: false    # 不将参数打包到一行
+BinPackParameters: false    # 函数定义的参数列表同样处理
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterCaseLabel: false
@@ -42,9 +43,9 @@ BreakBeforeBinaryOperators: None
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
-ColumnLimit: 120  # default: 80
+ColumnLimit: 120  # 超过此宽度才触发换行
 CompactNamespaces: false
-ContinuationIndentWidth: 4
+ContinuationIndentWidth: 4  # 续行缩进宽度（控制参数缩进量）
 Cpp11BracedListStyle: true
 DerivePointerAlignment: false  # Make sure the * or & align on the left
 EmptyLineBeforeAccessModifier: LogicalBlock
@@ -59,6 +60,7 @@ NamespaceIndentation: None
 ObjCSpaceAfterProperty: false
 ObjCSpaceBeforeProtocolList: true
 PointerAlignment: Right
+PenaltyReturnTypeOnItsOwnLine: 1000  # 增加返回值独占一行的惩罚值
 ReflowComments: false
 SeparateDefinitionBlocks: Always   # Only support since clang-format 14
 SortIncludes: Never # 禁用 include 头文件格式化时自动排序
@@ -73,7 +75,7 @@ SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: true
 SpaceBeforeSquareBrackets: false
 SpaceInEmptyParentheses: false
-SpacesBeforeTrailingComments: 2
+SpacesBeforeTrailingComments: 2  # 行尾注释前的空格数
 SpacesInAngles: false
 SpacesInCStyleCastParentheses: false
 SpacesInContainerLiterals: false
