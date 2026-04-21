@@ -1,0 +1,266 @@
+# =============================================================================
+# Google C/C++ Code Style settings
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+# Author: loskyertt, loskyertt0403@gmail.com
+# =============================================================================
+
+# 指定格式化语言为 C++
+Language: Cpp
+
+# 基于 Google 风格进行自定义扩展（所有未显式配置的选项将沿用 Google 默认值）
+BasedOnStyle: Google
+
+# -----------------------------------------------------------------------------
+# 缩进与对齐相关
+# -----------------------------------------------------------------------------
+
+# 访问修饰符（public/private/protected）相对于类定义的缩进偏移量（负值表示向左缩进）
+AccessModifierOffset: -1
+
+# 开括号后换行时的对齐策略：DontAlign 表示不使用对齐，而是使用 ContinuationIndentWidth 缩进
+# 修改原因：避免参数列表换行时出现不规则缩进，确保统一使用续行缩进宽度
+AlignAfterOpenBracket: DontAlign
+
+# 连续赋值语句的对齐方式：None 表示不对齐（如 a = 1; b = 2; 不会强制 = 号对齐）
+AlignConsecutiveAssignments: None
+
+# 操作数（如 &&, ||, +, - 等）的对齐策略：DontAlign 表示换行后不强制对齐操作符
+AlignOperands: DontAlign
+
+# -----------------------------------------------------------------------------
+# 函数/参数/代码块单行策略
+# -----------------------------------------------------------------------------
+
+# 是否允许函数调用的所有参数都放到下一行：false 表示不允许，参数过多时优先换行而非整体下移
+AllowAllArgumentsOnNextLine: false
+
+# 是否允许构造函数的所有初始化列表项都放到下一行：false 表示不允许
+AllowAllConstructorInitializersOnNextLine: false
+
+# 是否允许函数声明/定义的所有参数都放到下一行：false 表示参数过多时必须换行
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# 允许简短的代码块（如 { }）写在同一行：Empty 表示仅当代码块为空时允许
+AllowShortBlocksOnASingleLine: Empty
+
+# 允许简短的 case 标签（如 case 1: return 1;）写在同一行：false 表示强制换行
+AllowShortCaseLabelsOnASingleLine: false
+
+# 允许简短函数写在同一行：Inline 表示仅 inline 函数或极短函数允许单行
+AllowShortFunctionsOnASingleLine: Inline
+
+# 允许简短 if 语句写在同一行：Never 表示所有 if 语句必须使用大括号且换行（避免歧义）
+AllowShortIfStatementsOnASingleLine: Never
+
+# 允许简短 Lambda 表达式写在同一行：Inline 表示简单 Lambda 可保持单行
+AllowShortLambdasOnASingleLine: Inline
+
+# 允许简短循环（for/while）写在同一行：false 表示循环体必须换行
+AllowShortLoopsOnASingleLine: false
+
+# -----------------------------------------------------------------------------
+# 返回值与模板声明换行策略
+# -----------------------------------------------------------------------------
+
+# 返回值类型的换行策略：None 表示尽量与函数名保持在同一行
+AlwaysBreakAfterReturnType: None
+
+# 模板声明（如 template<typename T>）是否强制换行：Yes 表示模板参数过多时强制换行
+AlwaysBreakTemplateDeclarations: Yes
+
+# -----------------------------------------------------------------------------
+# 参数/参数列表打包策略
+# -----------------------------------------------------------------------------
+
+# 函数调用参数是否允许"打包"到一行（即使超过列宽）：false 表示严格按列宽换行
+BinPackArguments: false
+
+# 函数定义参数是否允许"打包"到一行：false 表示每个参数换行时独占一行，便于阅读
+BinPackParameters: false
+
+# -----------------------------------------------------------------------------
+# 大括号换行策略（核心风格控制）
+# -----------------------------------------------------------------------------
+
+# 大括号换行基础策略：Custom 表示使用下方 BraceWrapping 的细粒度配置
+BreakBeforeBraces: Custom
+
+# 细粒度控制各类语法结构后大括号的换行行为
+BraceWrapping:
+  AfterCaseLabel: false       # case 标签后的大括号不换行（如 switch-case）
+  AfterClass: false           # class 定义后的大括号不换行（与类名同行）
+  AfterStruct: false          # struct 定义后的大括号不换行
+  AfterControlStatement: Never  # if/for/while 等控制语句后的大括号强制不换行（同行）
+  AfterEnum: false            # enum 定义后的大括号不换行
+  AfterFunction: false        # 函数定义后的大括号不换行（与函数签名同行）
+  AfterNamespace: false       # namespace 后的大括号不换行
+  AfterUnion: false           # union 定义后的大括号不换行
+  AfterExternBlock: false     # extern 块的大括号不换行
+  BeforeCatch: false          # catch 关键字前的大括号不换行（与 } catch 同行）
+  BeforeElse: false           # else 关键字前的大括号不换行（与 } else 同行）
+  BeforeLambdaBody: false     # Lambda 表达式体前的大括号不换行
+  IndentBraces: false         # 大括号本身不额外缩进（与代码块同级）
+  SplitEmptyFunction: false   # 空函数的大括号不拆分到多行（保持 {} 同行）
+  SplitEmptyRecord: false     # 空结构体/类的大括号不拆分
+  SplitEmptyNamespace: false  # 空命名空间的大括号不拆分
+
+# -----------------------------------------------------------------------------
+# 运算符换行策略
+# -----------------------------------------------------------------------------
+
+# 二元运算符（+ - * / 等）换行时是否放在行首：None 表示放在行尾（传统 C 风格）
+BreakBeforeBinaryOperators: None
+
+# 三元运算符（?:）换行时是否放在行首：true 表示放在行首
+BreakBeforeTernaryOperators: true
+
+# 构造函数初始化列表的冒号换行策略：BeforeColon 表示冒号放在新行首
+BreakConstructorInitializers: BeforeColon
+
+# 继承列表的冒号换行策略：BeforeColon 表示冒号放在新行首（: public Base）
+BreakInheritanceList: BeforeColon
+
+# -----------------------------------------------------------------------------
+# 列宽与续行缩进
+# -----------------------------------------------------------------------------
+
+# 单行最大字符数限制：超过 120 字符时触发自动换行逻辑
+ColumnLimit: 120
+
+# 是否压缩连续的 namespace 块（如 namespace A::B::C）：false 表示保持嵌套写法
+CompactNamespaces: false
+
+# 续行（非首行）的缩进宽度：4 空格，用于参数列表、长表达式等换行后的缩进
+ContinuationIndentWidth: 4
+
+# 是否使用 C++11 风格的列表初始化（如 vector<int>{1,2,3}）格式：true 表示启用
+Cpp11BracedListStyle: true
+
+# 是否自动推导指针/引用的对齐方式：false 表示手动控制，配合 PointerAlignment 使用
+DerivePointerAlignment: false
+
+# 访问修饰符前的空行策略：LogicalBlock 表示在不同逻辑块间自动插入空行
+EmptyLineBeforeAccessModifier: LogicalBlock
+
+# 是否自动修复 namespace 后的注释（如 // namespace name）：true 表示启用
+FixNamespaceComments: true
+
+# include 头文件的分组策略：Preserve 表示保持用户原有的分组顺序，不自动重排
+IncludeBlocks: Preserve
+
+# case 标签下的语句是否缩进：true 表示 case: 后的代码缩进一级
+IndentCaseLabels: true
+
+# 预处理指令（#include, #ifdef 等）的缩进策略：None 表示不额外缩进
+IndentPPDirectives: None
+
+# 基础缩进宽度：2 空格（函数体、类成员、命名空间内容等使用此缩进）
+IndentWidth: 2
+
+# 是否保留代码块起始处的空行：true 表示保留（如函数开头的手动空行）
+KeepEmptyLinesAtTheStartOfBlocks: true
+
+# 允许连续空行的最大数量：1 表示最多保留 1 个空行，多余的空行会被合并
+MaxEmptyLinesToKeep: 1
+
+# 命名空间内容的缩进策略：None 表示 namespace 内的代码不额外缩进（与 Google 风格一致）
+NamespaceIndentation: None
+
+# -----------------------------------------------------------------------------
+# Objective-C 相关（C++ 项目中可忽略）
+# -----------------------------------------------------------------------------
+ObjCSpaceAfterProperty: false
+ObjCSpaceBeforeProtocolList: true
+
+# -----------------------------------------------------------------------------
+# 指针/引用符号对齐
+# -----------------------------------------------------------------------------
+
+# 指针/引用符号的对齐位置：Right 表示靠右对齐（如 int& ref, int* ptr）
+PointerAlignment: Right
+
+# -----------------------------------------------------------------------------
+# 返回值换行惩罚（关键修复项）
+# -----------------------------------------------------------------------------
+
+# 增加返回值单独成行的"惩罚值"：1000 表示极力避免返回值独占一行
+# 作用：确保函数签名如 "void func(...)" 保持在同一行，而非 "void" 单独成行
+PenaltyReturnTypeOnItsOwnLine: 1000
+
+# -----------------------------------------------------------------------------
+# 注释与代码格式细节
+# -----------------------------------------------------------------------------
+
+# 是否自动重排注释文本以适配列宽：false 表示保持注释原样，不自动换行重排
+ReflowComments: false
+
+# 类/结构体成员定义块之间的分隔策略：Always 表示不同类型成员间强制空行分隔
+# 注意：此选项需 ClangFormat 14+ 版本支持
+SeparateDefinitionBlocks: Always
+
+# include 头文件是否自动按字母排序：Never 表示保持用户手动顺序，便于分组管理
+SortIncludes: Never
+
+# C 风格强制类型转换后是否加空格：(int)x 而非 (int) x
+SpaceAfterCStyleCast: false
+
+# 逻辑非运算符 ! 后是否加空格：!flag 而非 ! flag
+SpaceAfterLogicalNot: false
+
+# template 关键字与 < 之间是否加空格：template <typename T> 而非 template<typename T>
+SpaceAfterTemplateKeyword: true
+
+# 赋值运算符（=, +=, -= 等）前是否加空格：a = b 而非 a=b
+SpaceBeforeAssignmentOperators: true
+
+# C++11 列表初始化 { 前是否加空格：vector<int>{1,2} 而非 vector<int> {1,2}
+SpaceBeforeCpp11BracedList: false
+
+# 构造函数初始化列表冒号 : 前是否加空格：Class() : member(1) 而非 Class(): member(1)
+SpaceBeforeCtorInitializerColon: true
+
+# 继承列表冒号 : 前是否加空格：class D : public B 而非 class D: public B
+SpaceBeforeInheritanceColon: true
+
+# 控制语句（if/for/while/switch）的括号前是否加空格：if (cond) 而非 if(cond)
+SpaceBeforeParens: ControlStatements
+
+# 范围 for 循环的冒号 : 前是否加空格：for (auto& x : vec) 而非 for(auto& x:vec)
+SpaceBeforeRangeBasedForLoopColon: true
+
+# 数组下标 [ 前是否加空格：arr[0] 而非 arr [0]
+SpaceBeforeSquareBrackets: false
+
+# 空括号 () 内是否加空格：func() 而非 func( )
+SpaceInEmptyParentheses: false
+
+# 行尾注释 // 前保留的最少空格数：2 表示代码与注释间至少 2 空格
+SpacesBeforeTrailingComments: 2
+
+# 模板参数 < > 内是否加空格：vector<int> 而非 vector< int >
+SpacesInAngles: false
+
+# C 风格强制类型转换括号内是否加空格：(int)x 而非 ( int )x
+SpacesInCStyleCastParentheses: false
+
+# 容器字面量（如 Objective-C 数组）内是否加空格：C++ 项目中可忽略
+SpacesInContainerLiterals: false
+
+# 普通括号 () 内是否加空格：func(a, b) 而非 func( a, b )
+SpacesInParentheses: false
+
+# 数组下标 [] 内是否加空格：arr[0] 而非 arr[ 0 ]
+SpacesInSquareBrackets: false
+
+# -----------------------------------------------------------------------------
+# 语言标准与制表符设置
+# -----------------------------------------------------------------------------
+
+# 使用的 C++ 语言标准：c++11 表示按 C++11 语法规则格式化
+Standard: c++11
+
+# Tab 字符等价于多少空格（仅用于计算，实际使用空格而非 Tab）
+TabWidth: 4
+
+# 是否使用 Tab 字符进行缩进：Never 表示全部使用空格，避免跨编辑器缩进不一致
+UseTab: Never

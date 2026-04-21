@@ -1,0 +1,76 @@
+# 官方文档: https://clangd.llvm.org/config
+
+# ─── 编译参数 ────────────────────────────────────────────────
+# 这些参数会叠加到 compile_commands.json 之上，或在没有它时作为默认参数
+CompileFlags:
+  Add:
+    - "-IC:/Users/sky/Desktop/Repositories/TemplateRepoCxx/src/core/include"
+    - "-IC:/Users/sky/Desktop/Repositories/TemplateRepoCxx/src/utils/include"
+
+    - -std=c++23                  # 使用 C++23 标准解析代码
+    - -Wall                       # 开启基础警告集合
+    - -Wextra                     # 开启额外警告（补充 -Wall 未覆盖的部分）
+    - -Wconversion                # 警告隐式类型转换（如 double→int 的精度损失）
+
+    - -Wno-padded                 # 关闭结构体内存对齐填充警告
+                                  # （编译器为对齐自动插入 padding，误报率高）
+    - -Wno-unused-parameter       # 关闭未使用参数警告
+                                  # （虚函数/回调函数常有不使用的参数，很正常）
+    - -Wno-missing-declarations   # 关闭"函数无前置声明"警告（C++ 版本）
+    - -Wno-missing-prototypes     # 关闭"函数无前置声明"警告（C 版本）
+                                  # ↑ 这两条是遇到的 prototype 警告的解决方案
+
+    - -Wno-c++98-compat           # 关闭 C++98 兼容性警告
+    - -Wno-c++98-compat-pedantic  # 关闭更严格的 C++98 兼容性警告
+                                  # ↑ 既然用 C++23，完全不需要关心 98 兼容性
+
+    - -DSDL_DISABLE_M_PREFETCH=1  # SDL 宏：禁用 SDL 内部的 _m_prefetch 调用
+    - -D__PRFCHWINTRIN_H=1        # 防止包含 MSVC 风格的 prfchwintrin.h
+                                  # ↑ 这两条是为了解决 SDL 在非 MSVC 环境下的头文件冲突问题
+
+  Remove:
+    - -m*                         # 移除所有 -march=、-msse2 等目标架构参数
+    - -arch                       # 移除 Xcode/Apple Clang 的 -arch 参数
+    - -stdlib=*                   # 移除 -stdlib=libc++ 等标准库指定参数
+                                  # ↑ 这三条是跨平台兼容的关键：
+                                  #   compile_commands.json 里可能含有平台特定参数
+                                  #   clangd 自身的 clang 不认识这些参数会报错
+
+# ─── 诊断与静态分析 ──────────────────────────────────────────
+Diagnostics:
+  ClangTidy:
+    FastCheckFilter: Strict       # clangd 专属选项：编辑时只运行"快速"的 tidy 检查
+                                  # 耗时检查（如某些 bugprone-*）推迟或跳过
+                                  # 避免每次输入都卡顿，具体 checks 由 .clang-tidy 决定
+
+  UnusedIncludes: Strict          # 检测并提示多余的 #include
+                                  # Strict = 只要符号未被使用就报告
+                                  # 注意：可能对间接依赖头文件产生误报
+
+# ─── 代码补全 ────────────────────────────────────────────────
+Completion:
+  AllScopes: Yes                  # 补全时搜索所有命名空间的符号
+                                  # 即使没有 using namespace xxx 也能补全并自动插入
+                                  # 大型项目中补全候选更丰富，但候选列表会变长
+
+# ─── 嵌入式提示（Inlay Hints）────────────────────────────────
+# 在编辑器中以灰色文字内联显示的辅助信息，不影响实际代码
+InlayHints:
+  Enabled: Yes                    # 总开关
+  ParameterNames: Yes             # 显示函数调用的参数名
+  DeducedTypes: Yes               # 显示 auto 推导出的实际类型
+  Designators: Yes                # 聚合初始化时显示字段名
+  BlockEnd: false                 # 不在 } 后显示对应的函数/类名
+  DefaultArguments: true          # 显示使用了默认值的参数
+
+# ─── 悬停信息 ────────────────────────────────────────────────
+Hover:
+  ShowAKA: Yes                    # 悬停时同时显示 typedef/using 的原始类型
+
+# ─── 索引 ───────────────────────────────────────────────────
+Index:
+  Background: Build               # 在后台持续建立全项目符号索引
+                                  # 使跳转定义、查找引用等功能覆盖整个项目
+                                  # （而不是只覆盖已打开的文件）
+  StandardLibrary: Yes            # 同时索引标准库符号
+                                  # 使 std::vector、std::string 等也能跳转和补全
