@@ -17,9 +17,6 @@ endif()
 # 开启 gtest_discover_tests 注册测试用例依赖
 enable_testing()
 
-# 脚本
-# include(cmake/check_arch.cmake)
-
 # 第三方库
 find_package(GTest QUIET)
 

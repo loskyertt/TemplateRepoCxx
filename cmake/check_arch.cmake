@@ -1,3 +1,4 @@
+# cmake/check_arch.cmake
 message(STATUS "编译架构检测信息：")
 
 # A. 检查指针大小 (最准确的 32/64 位判断)
