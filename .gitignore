@@ -11,20 +11,9 @@
 *.gch
 *.pch
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
 # Fortran module files
 *.mod
 *.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
 
 # Executables
 *.exe
@@ -33,8 +22,7 @@
 
 # CMake
 build/
-cmake-build-debug/
-cmake-release-debug/
+cmake-build*/
 out/
 CMakeLists.txt.user
 CMakeCache.txt
@@ -74,11 +62,11 @@ _deps
 draft/
 
 # log for perf
-log
-logs
-tmp
-trash
-.trash
+log/
+logs/
+tmp/
+trash/
+.trash/
 *.rdb
 *.svg
 perf/
@@ -91,5 +79,12 @@ palette.map
 # public/index.html for httpd
 public/
 
-.gitnexus
-.codegraph
+# AI agent config
+.claude/
+!.claude/skills/
+.agents/
+!.agents/skills/
+
+# other
+.gitnexus/
+.codegraph/
