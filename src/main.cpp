@@ -1,19 +1,24 @@
 #include "circle.h"
 #include "rectangle.h"
-#include "logger.h"
+#include "logger/logger.h"
 
 #include <print>
 
+using sky::utility::Logger;
+using sky::utility::Singleton;
+
 int main() {
+  auto &logger = Singleton<Logger>::getInstance();
+  logger.open("log/core.log");
+  logger.setMax(1000);
+
   std::println("hello project");
 
-  Logger logger;
-
   Circle c(5.0);
-  logger.info("Circle area: " + std::to_string(c.area()));
+  Log_info("Circle area: %d", c.area());
 
   Rectangle r(4.0, 6.0);
-  logger.info("Rectangle area: " + std::to_string(r.area()));
+  Log_info("Rectangle area: %d", r.area());
 
   return 0;
 }
