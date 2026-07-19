@@ -8,9 +8,9 @@ using sky::utility::Logger;
 using sky::utility::Singleton;
 
 int main() {
-  auto &logger = Singleton<Logger>::getInstance();
+  auto &logger = Singleton<Logger>::instance();
   logger.open("log/core.log");
-  logger.setMax(1000);
+  logger.set_max(1000);
 
   std::println("hello project");
 

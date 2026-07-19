@@ -8,23 +8,15 @@
 
 #pragma once
 
-namespace sky {
-namespace utility {
+namespace sky::utility {
 
 template <typename T>
 class Singleton {
- public:
-  static T &getInstance() {
-    static T instance;
-    return instance;
+public:
+  static T &instance() {
+    static T s_instance;
+    return s_instance;
   }
-
- private:
-  Singleton() = default;
-  ~Singleton() = default;
-  Singleton(const Singleton &) = delete;
-  Singleton &operator=(const Singleton &) = delete;
 };
 
-}  // namespace utility
-}  // namespace sky
+}  // namespace sky::utility

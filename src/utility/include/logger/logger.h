@@ -13,29 +13,43 @@
 #include <fstream>
 #include <string>
 
-#define Log_debug(format, ...)                                \
-  sky::utility::Singleton<sky::utility::Logger>::getInstance().log( \
-      sky::utility::Logger::Level::DEBUG, __FILE__, __LINE__, format, ##__VA_ARGS__)
-#define Log_info(format, ...)                                 \
-  sky::utility::Singleton<sky::utility::Logger>::getInstance().log( \
-      sky::utility::Logger::Level::INFO, __FILE__, __LINE__, format, ##__VA_ARGS__)
-#define Log_warn(format, ...)                                 \
-  sky::utility::Singleton<sky::utility::Logger>::getInstance().log( \
-      sky::utility::Logger::Level::WARN, __FILE__, __LINE__, format, ##__VA_ARGS__)
-#define Log_error(format, ...)                                \
-  sky::utility::Singleton<sky::utility::Logger>::getInstance().log( \
-      sky::utility::Logger::Level::ERROR, __FILE__, __LINE__, format, ##__VA_ARGS__)
-#define Log_fatal(format, ...)                                \
-  sky::utility::Singleton<sky::utility::Logger>::getInstance().log( \
-      sky::utility::Logger::Level::FATAL, __FILE__, __LINE__, format, ##__VA_ARGS__)
+#define Log_debug(format, ...)                                                                      \
+  sky::utility::Singleton<sky::utility::Logger>::instance().log(sky::utility::Logger::Level::DEBUG, \
+                                                                __FILE__,                           \
+                                                                __LINE__,                           \
+                                                                format,                             \
+                                                                ##__VA_ARGS__)
+#define Log_info(format, ...)                                                                      \
+  sky::utility::Singleton<sky::utility::Logger>::instance().log(sky::utility::Logger::Level::INFO, \
+                                                                __FILE__,                          \
+                                                                __LINE__,                          \
+                                                                format,                            \
+                                                                ##__VA_ARGS__)
+#define Log_warn(format, ...)                                                                      \
+  sky::utility::Singleton<sky::utility::Logger>::instance().log(sky::utility::Logger::Level::WARN, \
+                                                                __FILE__,                          \
+                                                                __LINE__,                          \
+                                                                format,                            \
+                                                                ##__VA_ARGS__)
+#define Log_error(format, ...)                                                                      \
+  sky::utility::Singleton<sky::utility::Logger>::instance().log(sky::utility::Logger::Level::ERROR, \
+                                                                __FILE__,                           \
+                                                                __LINE__,                           \
+                                                                format,                             \
+                                                                ##__VA_ARGS__)
+#define Log_fatal(format, ...)                                                                      \
+  sky::utility::Singleton<sky::utility::Logger>::instance().log(sky::utility::Logger::Level::FATAL, \
+                                                                __FILE__,                           \
+                                                                __LINE__,                           \
+                                                                format,                             \
+                                                                ##__VA_ARGS__)
 
-namespace sky {
-namespace utility {
+namespace sky::utility {
 
 class Logger {
-  friend class sky::utility::Singleton<Logger>;  // 允许 Singleton 访问私有构造函数
+  friend class Singleton<Logger>;  // 允许 Singleton 访问私有构造函数
 
- public:
+public:
   enum class Level {
     DEBUG,
     INFO,
@@ -45,7 +59,7 @@ class Logger {
     LEVEL_COUNT,
   };
 
- private:
+private:
   std::string m_filename;                                               // 日志文件名
   std::ofstream m_fout;                                                 // 日志文件输出流
   static const char *s_level[static_cast<size_t>(Level::LEVEL_COUNT)];  // 日志级别字符串
@@ -54,10 +68,18 @@ class Logger {
   int m_max;                                                            // 最大日志长度
   bool m_auto_flush;                                                    // 是否自动刷新
 
- public:
-  /* 单例模式：全局访问点 */
-  // static Logger &getInstance();
+public:
+  Logger(const Logger &)            = delete;
+  Logger &operator=(const Logger &) = delete;
 
+private:
+  Logger();
+  ~Logger();  // 避免用户手动删除单例对象（手动删除时会调用析构函数）
+
+  /* 日志翻滚：超出最大长度时，记载到新日志文件中 */
+  void rotate();
+
+public:
   void open(const std::string &filename);
 
   void close();
@@ -74,26 +96,15 @@ class Logger {
   void log(Level level, const char *file, int line, const char *format, ...);
 
   // setters and getters
- public:
+public:
   /* 设置日志级别 */
-  void setLevel(Level level) { m_level = level; }
+  void set_level(Level level) { m_level = level; }
 
   /* 设置最大日志长度，单位：字节 */
-  void setMax(int bytes) { m_max = bytes; }
+  void set_max(int bytes) { m_max = bytes; }
 
   /* 设置自动刷新：默认是自动刷新 */
   void setAutoFlush(bool auto_flush) { m_auto_flush = auto_flush; }
-
- private:
-  Logger();
-  ~Logger();  // 避免用户手动删除单例对象（手动删除时会调用析构函数）
-  Logger(const Logger &) = delete;
-  Logger &operator=(const Logger &) = delete;
-
-  /* 日志翻滚：超出最大长度时，记载到新日志文件中 */
-  void rotate();
 };
 
-}  // namespace utility
-
-}  // namespace sky
+}  // namespace sky::utility

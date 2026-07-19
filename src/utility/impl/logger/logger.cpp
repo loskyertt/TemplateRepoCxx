@@ -27,17 +27,10 @@ Logger::~Logger() {
   close();
 }
 
-// Logger &Logger::getInstance() {
-//   static Logger instance;
-//   return instance;
-// }
-
 void Logger::open(const std::string &filename) {
   m_filename = filename;
   m_fout.open(filename, std::ios::app);
-  if (m_fout.fail()) {
-    throw std::logic_error("open log file failed: " + filename);
-  }
+  if (m_fout.fail()) { throw std::logic_error("open log file failed: " + filename); }
 
   m_fout.seekp(0, std::ios::end);
   m_len = static_cast<int>(m_fout.tellp());
@@ -48,16 +41,12 @@ void Logger::close() {
 }
 
 void Logger::log(Level level, const char *file, int line, const char *format, ...) {
-  if (level < m_level) {
-    return;
-  }
+  if (level < m_level) { return; }
 
-  if (m_fout.fail()) {
-    throw std::logic_error("log file failed: " + m_filename);
-  }
+  if (m_fout.fail()) { throw std::logic_error("log file failed: " + m_filename); }
 
   // 获取当前时间
-  time_t now = time(0);
+  time_t now            = time(0);
   struct tm *ptm_struct = localtime(&now);
   char time_str[32];
   std::memset(time_str, 0, sizeof(time_str));
@@ -90,20 +79,16 @@ void Logger::log(Level level, const char *file, int line, const char *format, ..
     delete[] content;
   }
   m_fout << "\n";
-  if (m_auto_flush) {
-    m_fout.flush();
-  }
+  if (m_auto_flush) { m_fout.flush(); }
 
-  if (m_len >= m_max && m_max > 0) {
-    rotate();
-  }
+  if (m_len >= m_max && m_max > 0) { rotate(); }
 }
 
 void Logger::rotate() {
   close();  // 关闭之前打开的文件
 
   // 获取当前时间
-  time_t now = time(0);
+  time_t now            = time(0);
   struct tm *ptm_struct = localtime(&now);
   char time_str[32];
   std::memset(time_str, 0, sizeof(time_str));

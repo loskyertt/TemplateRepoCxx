@@ -11,11 +11,11 @@
 using namespace sky::utility;
 
 int main() {
-  auto &logger = Singleton<Logger>::getInstance();
+  auto &logger = Singleton<Logger>::instance();
 
-  logger.open("log/test01.log");
-  // logger.setLevel( Singleton<Logger>::Level::ERROR);
-  logger.setMax(1000);
+  logger.open("log/test_logger.log");
+  // logger.set_level(Singleton<Logger>::Level::ERROR);
+  logger.set_max(1000);
 
   Log_debug("name is %s, age is %d", "sky", 22);
   Log_info("name is %s, age is %d", "sky", 22);
