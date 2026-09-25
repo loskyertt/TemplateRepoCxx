@@ -6,4 +6,4 @@ add_subdirectory(core)
 add_subdirectory(utility)
 
 add_executable(${TARGET} main.cpp)
-target_link_libraries(${TARGET} PRIVATE core utility::logger)
+target_link_libraries(${TARGET} PRIVATE core utility)

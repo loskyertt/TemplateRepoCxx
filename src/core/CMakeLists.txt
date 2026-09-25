@@ -2,10 +2,10 @@
 
 # core 模块
 add_library(core STATIC
-        impl/circle.cpp
-        impl/rectangle.cpp
+        circle.cpp
+        rectangle.cpp
 )
-target_include_directories(core
-        PUBLIC  include
-        PRIVATE impl
+
+target_include_directories(core PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
