@@ -8,7 +8,7 @@ using sky::utility::Logger;
 using sky::utility::Singleton;
 
 int main() {
-  auto &logger = Singleton<Logger>::instance();
+  auto& logger = Singleton<Logger>::instance();
   logger.open("log/core.log");
   logger.set_max(1000);
 
